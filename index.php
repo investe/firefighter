@@ -9,10 +9,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, nome, disponibile, autista, telefono FROM vigili";
+$sql = "SELECT id, nome, disponibile, autista, telefono FROM vigili ORDER BY disponibile DESC"; // Pesco i dati della tabella e li ordino in base alla disponibilità
 $result = $conn->query($sql);
-
-
 
 
 /*
@@ -52,14 +50,24 @@ $conn->close(); */
 <html lang="it">
   <head>
 <style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
- margin: auto;
-}
+ 
+ body {
+  background-color: dimgray;
+ }
+ 
 th, td {
-    padding: 5px;
+    border: 1px solid grey;
+    border-collapse: collapse;
+ padding: 5px;
 }
+
+ table {
+   box-shadow: 2px 2px 25px rgba(0,0,0,0.5);
+    border-radius: 15px;
+  margin: auto;
+ }
+ 
+ 
 </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -70,33 +78,31 @@ th, td {
    
    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <title>Allerta Vigili del Fuoco!</title>
+    <title>Allerta Vigili del Fuoco</title>
   </head>
   <body class="text-center"><br /><br />
-   <h1>Disponibilità VVF Darfo</h1><br /><br />
+   <h1>VVF Darfo</h1><br /><br />
    <div >
 <table style="width:80%">
-  <caption>Vigili del fuoco</caption>
+  <caption>Disponibilità in caso di allerta</caption>
   <tr>
     <th>Nome</th>
     <th>Disponibile</th>
     <th>Autista</th>
-    <th>Telefono</th>
+    <th>Chiama</th>
 
-  
    <?php 
    while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ 
        echo "<tr>
-          <td>".$row["nome"]."</td>
-          <td>".$row["disponibile"]."</td>
-          <td>"; 
-    if ($row['autista'] == 1) {echo "<i class='fa fa-car'></i>";} else{echo "";};;
+          <td>".$row["nome"]."</td><td>"; 
+     if ($row['disponibile'] == 1) {echo "<i class='fa fa-check' style='color:green'></i>";} else{echo "<i class='fa fa-times'  style='color:red'></i>";};
+       echo  "</td>
+       <td>"; 
+    if ($row['autista'] == 1) {echo "<i class='fa fa-car'></i>";} else{echo "";};
     echo "</td>
 		  <td><a href='tel:" . $row['telefono'] . "'><i class='fa fa-phone'></i></a></td>
         </tr>";
-    
    }
-    
     ?>
     </table> 
     </div>
