@@ -1,6 +1,7 @@
 ﻿<?php
 include connection.php;
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -54,10 +55,10 @@ $conn->close(); */
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+ margin: auto;
 }
 th, td {
     padding: 5px;
-    text-align: left;
 }
 </style>
     <!-- Required meta tags -->
@@ -66,12 +67,15 @@ th, td {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <title>Allerta Vigili del Fuoco!</title>
   </head>
-  <body>
-   <div class="text-center">
-<table style="width:80%";margin="auto">
+  <body class="text-center"><br /><br />
+   <h1>Disponibilità VVF Darfo</h1><br /><br />
+   <div >
+<table style="width:80%">
   <caption>Vigili del fuoco</caption>
   <tr>
     <th>Nome</th>
@@ -85,8 +89,10 @@ th, td {
        echo "<tr>
           <td>".$row["nome"]."</td>
           <td>".$row["disponibile"]."</td>
-          <td>" . $row['autista'] . "</td>
-		  <td>" . $row['telefono'] . "</td>
+          <td>"; 
+    if ($row['autista'] == 1) {echo "<i class='fa fa-car'></i>";} else{echo "";};;
+    echo "</td>
+		  <td><a href='tel:" . $row['telefono'] . "'><i class='fa fa-phone'></i></a></td>
         </tr>";
     
    }
