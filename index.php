@@ -1,5 +1,6 @@
-﻿<?php
-include 'connection.php';
+<?php
+include "connection.php";
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -10,8 +11,6 @@ if ($conn->connect_error) {
 
 $sql = "SELECT id, nome, disponibile, autista, telefono FROM vigili ORDER BY disponibile DESC"; // Pesco i dati della tabella e li ordino in base alla disponibilità
 $result = $conn->query($sql);
-
-
 
 ?> 
 <!doctype html>
@@ -33,6 +32,9 @@ th, td {
    box-shadow: 2px 2px 25px rgba(0,0,0,0.5);
     border-radius: 15px;
   margin: auto;
+ }
+.fa {
+  margin: 0 2px 0 2px;
  }
  
  
@@ -58,7 +60,6 @@ th, td {
     <th>Disponibile</th>
     <th>Autista</th>
     <th>Chiama</th>
-
    <?php 
    while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ 
        echo "<tr>
@@ -67,9 +68,11 @@ th, td {
        echo  "</td>
        <td>"; 
     if ($row['autista'] == 1) {echo "<i class='fa fa-car'></i>";} else{echo "";};
-    echo "</td>
-		  <td><a href='tel:" . $row['telefono'] . "'><i class='fa fa-phone'></i></a></td>
-        </tr>";
+    echo "</td><td><a href='tel:" . $row['telefono'] . "'><i class='fa fa-phone'></i></a>  ";
+      
+    if ($row['disponibile'] == 1) {echo "  <a href='https://api.whatsapp.com/send?phone=" . $row['telefono'] . "&text=Sei disponibile%20in%20caso%20di%20allerta.%20Mettiti%20in%20contatto%20con%20Fulvio'><i class='fa fa-bullhorn' style='color:green'></i>";} else{echo "";};   
+      
+     echo "</td></tr>";
    }
     ?>
     </table> 
