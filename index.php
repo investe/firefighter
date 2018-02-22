@@ -1,6 +1,5 @@
 ﻿<?php
-include connection.php;
-
+include 'connection.php';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,38 +12,7 @@ $sql = "SELECT id, nome, disponibile, autista, telefono FROM vigili ORDER BY dis
 $result = $conn->query($sql);
 
 
-/*
-$vigili = [
-    'id' => [],
-    'Nome' => [],
-    'Disponibile' => [],
-    'Autista' => [],
-    'Telefono' => []
-];
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $id = $row["id"];
-        $Nome = $row["Nome"];
-        $Disponibile = $row["Disponibile"];
-        $Autista = $row["Autista"];
-        $Telefono = $row["Telefono"];
-        $vigili['id'] = $id;
-        $vigili['Nome'] = $Nome;
-        $vigili['Disponibile'] = $Disponibile;
-        $vigili['Autista'] = $Autista;
-        $vigili['Telefono'] = $Telefono;
-        echo "id: " . $row["id"]. "<br>";
-        echo "id: " . $id . "<br>";
-        print_r($vigili);
-        echo "<br>";
 
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close(); */
 ?> 
 <!doctype html>
 <html lang="it">
